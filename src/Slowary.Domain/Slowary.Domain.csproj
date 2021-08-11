@@ -2,10 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Slowary.Domain</RootNamespace>
+        <AssemblyName>Slowary.Domain</AssemblyName>
     </PropertyGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Slowary.Shared\Slowary.Shared.csproj" />
-    </ItemGroup>
 
 </Project>
