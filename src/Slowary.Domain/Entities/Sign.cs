@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Slowary.Domain
+namespace Slowary.Domain.Entities
 {
     /// <summary>
     /// Represents sign (in semiotic sense) of any complexity. 
     /// </summary>
     [Table("sign")]
-    public class Sign
+    public class Sign : IEntity<uint>
     {
         /// <summary>
         /// Gets or sets sign id.
@@ -15,7 +15,7 @@ namespace Slowary.Domain
         [Key]
         [Column("sign_id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public uint SignId { get; set; }
+        public uint Id { get; set; }
 
         /// <summary>
         /// Gets or sets sign value.
@@ -24,6 +24,7 @@ namespace Slowary.Domain
         /// "Zed is dead" (expression),
         /// "Given enough eyeballs, all bugs are shallow." (quote), etc.</example>
         [Column("value")]
+        [Required]
         [StringLength(255)]
         public string Value { get; set; }
 
@@ -31,6 +32,7 @@ namespace Slowary.Domain
         /// Gets or sets sign meaning.
         /// </summary>
         [Column("semantics")]
+        [Required]
         [StringLength(255)]
         public string Semantics { get; set; }
 
