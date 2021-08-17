@@ -7,7 +7,7 @@ namespace Slowary.Domain.Entities
     /// Represents sign (in semiotic sense) of any complexity. 
     /// </summary>
     [Table("sign")]
-    public class Sign : IUintEntity
+    public class Sign : IDefaultEntity
     {
         /// <summary>
         /// Gets or sets sign id.

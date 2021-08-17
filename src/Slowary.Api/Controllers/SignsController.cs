@@ -12,12 +12,12 @@ namespace Slowary.Api.Controllers
         public async Task<IActionResult> GetSign(uint id)
         {
             var query = new GetSignByIdQuery(id);
-            var result = await Mediator.Send(query);
-            return result != null ? Ok(result) : NotFound();
+            var option = await Mediator.Send(query);
+            return option.Match<IActionResult>(Ok, NotFound);
         }
         
         [HttpPost("create")]
-        public async Task<ActionResult<uint>> Create(SignCreateCommand command)
+        public async Task<ActionResult<uint>> Create([FromBody] SignCreateCommand command)
         {
             var result = await Mediator.Send(command);
             return CreatedAtAction("GetSign", new {id = result.SignId}, result);

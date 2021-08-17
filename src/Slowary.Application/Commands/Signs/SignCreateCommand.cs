@@ -1,7 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
-using Slowary.Application.Common.Contexts;
+using Slowary.Application.Common.Repositories;
 using Slowary.Application.Responses.Signs;
 using Slowary.Domain.Entities;
 
@@ -18,38 +19,20 @@ namespace Slowary.Application.Commands.Signs
 
     public class SignCreateCommandHandler : IRequestHandler<SignCreateCommand, SignResponse>
     {
-        private readonly IApplicationDbContext _context;
+        private readonly ISignAsyncRepository _repository;
+        private readonly IMapper _mapper;
 
-        public SignCreateCommandHandler(IApplicationDbContext context)
+        public SignCreateCommandHandler(ISignAsyncRepository repository, IMapper mapper)
         {
-            _context = context;
+            _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<SignResponse> Handle(SignCreateCommand request, CancellationToken cancellationToken)
         {
-            // todo: replace this horror by repository and mapper?
-
-            var entity = new Sign
-            {
-                Example = request.Example,
-                Note = request.Note,
-                Semantics = request.Semantics,
-                Source = request.Source,
-                Value = request.Value
-            };
-
-            _context.Context.Set<Sign>().Add(entity);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new SignResponse
-            {
-                SignId = entity.Id,
-                Example = entity.Example ?? string.Empty,
-                Note = entity.Note ?? string.Empty,
-                Semantics = entity.Semantics,
-                Source = entity.Source ?? string.Empty,
-                Value = entity.Value
-            };
+            var entity = _mapper.Map<SignCreateCommand, Sign>(request);
+            await _repository.AddAsync(entity, cancellationToken);
+            return _mapper.Map<Sign, SignResponse>(entity);
         }
     }
 }

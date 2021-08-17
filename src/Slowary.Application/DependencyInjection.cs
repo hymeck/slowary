@@ -9,6 +9,7 @@ namespace Slowary.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services
+                .AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddMediatR(Assembly.GetExecutingAssembly());
 
             return services;
