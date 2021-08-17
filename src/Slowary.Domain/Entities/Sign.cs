@@ -7,7 +7,7 @@ namespace Slowary.Domain.Entities
     /// Represents sign (in semiotic sense) of any complexity. 
     /// </summary>
     [Table("sign")]
-    public class Sign : IEntity<uint>
+    public class Sign : IUintEntity
     {
         /// <summary>
         /// Gets or sets sign id.
@@ -15,7 +15,7 @@ namespace Slowary.Domain.Entities
         [Key]
         [Column("sign_id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public uint Id { get; set; }
+        public ulong Id { get; set; }
 
         /// <summary>
         /// Gets or sets sign value.

@@ -4,7 +4,7 @@ namespace Slowary.Application.Responses.Signs
 {
     public class SignResponse
     {
-        public uint SignId { get; set; }
+        public ulong SignId { get; set; }
         public string Value { get; set; }
         public string Semantics { get; set; }
         public string Example { get; set; }
