@@ -32,7 +32,6 @@ namespace Slowary.Domain.Entities
         /// Gets or sets sign meaning.
         /// </summary>
         [Column("semantics")]
-        [Required]
         [StringLength(255)]
         public string Semantics { get; set; }
 
