@@ -9,7 +9,7 @@ namespace Slowary.Api.Controllers
     public class SignsController : ApiBaseController
     {
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSign(uint id)
+        public async Task<IActionResult> GetSign(ulong id)
         {
             var query = new GetSignByIdQuery(id);
             var option = await Mediator.Send(query);
@@ -21,6 +21,17 @@ namespace Slowary.Api.Controllers
         {
             var result = await Mediator.Send(command);
             return CreatedAtAction("GetSign", new {id = result.SignId}, result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(ulong id, [FromBody] SignUpdateCommand command)
+        {
+            // todo: how to remove it from controller and add descriptive response content?
+            if (id != command.SignId)
+                return BadRequest();
+
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }

@@ -31,5 +31,12 @@ namespace Slowary.Infrastructure.Persistence.Repositories
             var entity = await _context.Set<TEntity>().FindAsync(new object[] {id}, token);
             return entity?.ToSome() ?? Option<TEntity>.None;
         }
+        
+        public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken token = default)
+        {
+            _context.Set<TEntity>().Update(entity); // todo: may act also as insert
+            await _context.SaveChangesAsync(token);
+            return entity;
+        }
     }
 }

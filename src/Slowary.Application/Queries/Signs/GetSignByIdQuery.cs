@@ -11,9 +11,9 @@ namespace Slowary.Application.Queries.Signs
 {
     public class GetSignByIdQuery : IRequest<Option<SignResponse>>
     {
-        public uint Id { get; }
+        public ulong Id { get; }
 
-        public GetSignByIdQuery(uint id)
+        public GetSignByIdQuery(ulong id)
         {
             Id = id;
         }

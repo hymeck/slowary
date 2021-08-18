@@ -17,6 +17,9 @@ namespace Slowary.Application.Common.Mappings
                 .ForMember(d => d.Source, map => map.MapFrom(s => s.Source ?? ""));
 
             CreateMap<SignCreateCommand, Sign>();
+            
+            CreateMap<SignUpdateCommand, Sign>()
+                .ForMember(d => d.Id, map => map.MapFrom(s => s.SignId));
         }
     }
 }
