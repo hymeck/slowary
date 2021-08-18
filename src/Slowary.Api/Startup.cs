@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Slowary.Api.Filters;
 using Slowary.Application;
 using Slowary.Infrastructure;
 
@@ -26,6 +28,15 @@ namespace Slowary.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddMvc(mvcOptions =>
+                {
+                    mvcOptions.Filters.Add<ValidationFilter>();
+                });
+
+            // https://stackoverflow.com/questions/55733521/asp-net-core-validation-after-filters
+            services.Configure<ApiBehaviorOptions>(apiOptions => apiOptions.SuppressModelStateInvalidFilter = true);
+            
             services
                 .AddApplication()
                 .AddInfrastructure(Configuration)
