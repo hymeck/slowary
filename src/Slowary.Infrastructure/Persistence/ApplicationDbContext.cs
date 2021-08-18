@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Slowary.Domain.Entities;
 
 namespace Slowary.Infrastructure.Persistence
@@ -8,6 +9,13 @@ namespace Slowary.Infrastructure.Persistence
         public DbSet<Sign> Signs => Set<Sign>();
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
+        }
+        
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // apply implementations of IEntityTypeConfiguration
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(builder);
         }
     }
 }
