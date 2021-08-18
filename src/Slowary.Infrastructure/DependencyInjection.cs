@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Slowary.Application.Common.Contexts;
 using Slowary.Application.Common.Repositories;
 using Slowary.Infrastructure.Persistence;
 using Slowary.Infrastructure.Persistence.Repositories;
@@ -18,7 +17,6 @@ namespace Slowary.Infrastructure
 
             services
                 .AddApplicationDbContext(dbConf.GetOptions(configuration))
-                .AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>())
                 .AddScoped<ISignAsyncRepository, EfSignAsyncRepository>();
 
             return services;
