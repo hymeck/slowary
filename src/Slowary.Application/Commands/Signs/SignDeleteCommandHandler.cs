@@ -1,27 +1,29 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using LanguageExt;
 using MediatR;
-using Slowary.Application.Common.Repositories;
+using Slowary.Application.Common.Dao.Signs;
+using Slowary.Application.Responses.Signs;
 using Slowary.Domain.Entities;
 
 namespace Slowary.Application.Commands.Signs
 {
-    public class SignDeleteCommandHandler : IRequestHandler<SignDeleteCommand, bool>
+    public class SignDeleteCommandHandler : IRequestHandler<SignDeleteCommand, Option<SignResponse>>
     {
-        private readonly ISignAsyncRepository _repository;
+        private readonly IAsyncSignDeleter _deleter;
         private readonly IMapper _mapper;
 
-        public SignDeleteCommandHandler(ISignAsyncRepository repository, IMapper mapper)
+        public SignDeleteCommandHandler(IAsyncSignDeleter deleter, IMapper mapper)
         {
-            _repository = repository;
+            _deleter = deleter;
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(SignDeleteCommand request, CancellationToken cancellationToken)
+        public async Task<Option<SignResponse>> Handle(SignDeleteCommand request, CancellationToken cancellationToken)
         {
-            var hasDeleted = await _repository.DeleteAsync(new Sign {Id = request.SignId}, cancellationToken);
-            return hasDeleted;
+            var option = await _deleter.DeleteAsync(new Sign {Id = request.SignId}, cancellationToken);
+            return option.Match(e => _mapper.Map<Sign, SignResponse>(e), Option<SignResponse>.None);
         }
     }
 }

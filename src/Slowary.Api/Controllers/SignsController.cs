@@ -38,8 +38,9 @@ namespace Slowary.Api.Controllers
         public async Task<IActionResult> Delete(ulong id)
         {
             var command = new SignDeleteCommand(id);
-            var hasDeleted = await Mediator.Send(command);
-            return hasDeleted ? NoContent() : UnprocessableEntity();
+            var option = await Mediator.Send(command);
+            // if none then resource was deleted
+            return option.Match<IActionResult>(UnprocessableEntity, NoContent);
         }
     }
 }

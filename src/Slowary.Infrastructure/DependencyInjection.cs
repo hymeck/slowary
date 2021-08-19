@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Slowary.Application.Common.Repositories;
+using Slowary.Application.Common.Dao.Signs;
 using Slowary.Infrastructure.Persistence;
-using Slowary.Infrastructure.Persistence.Repositories;
+using Slowary.Infrastructure.Persistence.Dao.Signs;
 
 namespace Slowary.Infrastructure
 {
@@ -17,7 +17,11 @@ namespace Slowary.Infrastructure
 
             services
                 .AddApplicationDbContext(dbConf.GetOptions(configuration))
-                .AddScoped<ISignAsyncRepository, EfSignAsyncRepository>();
+                // todo: make in a generic way using reflection? like AddServices(Assembly.GetExecutingAssembly())
+                .AddScoped<IAsyncSignAdder, EfAsyncSignAdder>()
+                .AddScoped<IAsyncSignFinder, EfAsyncSignFinder>()
+                .AddScoped<IAsyncSignUpdater, EfAsyncSignUpdater>()
+                .AddScoped<IAsyncSignDeleter, EfAsyncSignDeleter>();
 
             return services;
         }

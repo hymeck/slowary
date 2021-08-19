@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using LanguageExt;
+using MediatR;
+using Slowary.Application.Responses.Signs;
 
 namespace Slowary.Application.Commands.Signs
 {
-    public class SignDeleteCommand :IRequest<bool>
+    public class SignDeleteCommand :IRequest<Option<SignResponse>>
     {
         public ulong SignId { get; }
 

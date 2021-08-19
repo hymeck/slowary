@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LanguageExt;
 using MediatR;
-using Slowary.Application.Common.Repositories;
+using Slowary.Application.Common.Dao.Signs;
 using Slowary.Application.Responses.Signs;
 using Slowary.Domain.Entities;
 
@@ -21,18 +21,18 @@ namespace Slowary.Application.Queries.Signs
 
     public class GetSignByIdQueryHandler : IRequestHandler<GetSignByIdQuery, Option<SignResponse>>
     {
-        private readonly ISignAsyncRepository _repository;
+        private readonly IAsyncSignFinder _finder;
         private readonly IMapper _mapper;
 
-        public GetSignByIdQueryHandler(ISignAsyncRepository repository, IMapper mapper)
+        public GetSignByIdQueryHandler(IAsyncSignFinder finder, IMapper mapper)
         {
-            _repository = repository;
+            _finder = finder;
             _mapper = mapper;
         }
 
         public async Task<Option<SignResponse>> Handle(GetSignByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _repository.FindAsync(request.Id, cancellationToken);
+            var entity = await _finder.FindAsync(request.Id, cancellationToken);
             return entity.Match(e => _mapper.Map<Sign, SignResponse>(e), Option<SignResponse>.None);
         }
     }
