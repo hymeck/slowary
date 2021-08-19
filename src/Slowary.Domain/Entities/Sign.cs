@@ -11,5 +11,7 @@
         public string Example { get; set; }
         public string Source { get; set; }
         public string Note { get; set; }
+        public ulong AuditDetailId { get; set; }
+        public SignAuditDetail AuditDetail { get; set; }
     }
 }

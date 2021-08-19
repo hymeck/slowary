@@ -58,6 +58,17 @@ namespace Slowary.Infrastructure.Persistence.Configurations
                 .IsRequired(false)
                 .HasMaxLength(255)
                 .HasComment("additional information associated with sign");
+
+            builder
+                .Property(e => e.AuditDetailId)
+                .HasColumnName("audit_detail_id")
+                .IsRequired(); // truncate sign table when errors occur
+
+            builder
+                .HasOne(e => e.AuditDetail)
+                .WithOne(x => x.Sign)
+                .HasForeignKey<SignAuditDetail>()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
