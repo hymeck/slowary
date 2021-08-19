@@ -13,7 +13,4 @@
         /// <typeparam name="TKey">ID type</typeparam>
         public TKey Id { get; set; }
     }
-    
-    /// Describes a class that has a unique unsigned 64-bit integer identifier. 
-    public interface IDefaultEntity : IEntity<ulong> {}
 }
