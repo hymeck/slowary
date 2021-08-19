@@ -38,5 +38,12 @@ namespace Slowary.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync(token);
             return entity;
         }
+
+        public async Task<bool> DeleteAsync(TEntity entity, CancellationToken token = default)
+        {
+            _context.Set<TEntity>().Remove(entity);
+            var affectedRows = await _context.SaveChangesAsync(token);
+            return affectedRows == 1;
+        }
     }
 }

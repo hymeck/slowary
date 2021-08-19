@@ -11,6 +11,7 @@ namespace Slowary.Application.Common.Repositories
         Task<TEntity> AddAsync(TEntity entity, CancellationToken token = default);
         Task<Option<TEntity>> FindAsync(TKey id, CancellationToken token = default);
         Task<TEntity> UpdateAsync(TEntity entity, CancellationToken token = default);
+        Task<bool> DeleteAsync(TEntity entity, CancellationToken token = default);
     }
 
     public interface ISignAsyncRepository : IAsyncRepository<Sign, ulong>

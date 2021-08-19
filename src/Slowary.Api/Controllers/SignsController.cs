@@ -33,5 +33,13 @@ namespace Slowary.Api.Controllers
             await Mediator.Send(command);
             return NoContent();
         }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(ulong id)
+        {
+            var command = new SignDeleteCommand(id);
+            var hasDeleted = await Mediator.Send(command);
+            return hasDeleted ? NoContent() : UnprocessableEntity();
+        }
     }
 }
