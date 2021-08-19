@@ -2,7 +2,7 @@
 
 namespace Slowary.Domain.Entities
 {
-    public class SignAuditDetail
+    public class SignAuditDetail : IEntity<ulong>
     {
         public ulong Id { get; set; }
         public DateTime Added { get; set; }
