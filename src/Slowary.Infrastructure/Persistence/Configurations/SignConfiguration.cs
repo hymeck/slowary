@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Slowary.Domain.Entities;
 
@@ -58,6 +59,20 @@ namespace Slowary.Infrastructure.Persistence.Configurations
                 .IsRequired(false)
                 .HasMaxLength(255)
                 .HasComment("additional information associated with sign");
+
+            builder
+                .Property(e => e.Added)
+                .HasColumnName("added")
+                .HasColumnType("datetime")
+                .IsRequired(false)
+                .HasComment("when sign was added");
+            
+            builder
+                .Property(e => e.Modified)
+                .HasColumnName("modified")
+                .HasColumnType("datetime")
+                .IsRequired(false)
+                .HasComment("when sign was added");
         }
     }
 }
