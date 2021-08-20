@@ -1,9 +1,11 @@
-﻿namespace Slowary.Domain.Entities
+﻿using System;
+
+namespace Slowary.Domain.Entities
 {
     /// <summary>
     /// Represents sign (in semiotic sense) of any complexity.
     /// </summary>
-    public class Sign : IDefaultEntity
+    public class Sign : IDefaultEntity, IHasAuditableDate
     {
         public ulong Id { get; set; }
         public string Value { get; set; }
@@ -11,7 +13,7 @@
         public string Example { get; set; }
         public string Source { get; set; }
         public string Note { get; set; }
-        public ulong AuditDetailId { get; set; }
-        public SignAuditDetail AuditDetail { get; set; }
+        public DateTime Added { get; set; }
+        public DateTime Modified { get; set; }
     }
 }

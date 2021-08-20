@@ -7,7 +7,6 @@ namespace Slowary.Infrastructure.Persistence
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Sign> Signs => Set<Sign>();
-        public DbSet<SignAuditDetail> SignAuditDetail => Set<SignAuditDetail>();
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }

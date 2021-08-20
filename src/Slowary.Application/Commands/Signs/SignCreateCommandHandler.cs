@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -21,7 +22,11 @@ namespace Slowary.Application.Commands.Signs
 
         public async Task<SignResponse> Handle(SignCreateCommand request, CancellationToken cancellationToken)
         {
+            // todo: inject datetime service or implement date management in DAO?
+            var now = DateTime.UtcNow;
             var entity = _mapper.Map<SignCreateCommand, Sign>(request);
+            entity.Added = now;
+            entity.Modified = now;
             await _adder.AddAsync(entity, cancellationToken);
             return _mapper.Map<Sign, SignResponse>(entity);
         }

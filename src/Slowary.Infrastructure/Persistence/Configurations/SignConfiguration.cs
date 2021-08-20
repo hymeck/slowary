@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Slowary.Domain.Entities;
 
@@ -60,15 +61,20 @@ namespace Slowary.Infrastructure.Persistence.Configurations
                 .HasComment("additional information associated with sign");
 
             builder
-                .Property(e => e.AuditDetailId)
-                .HasColumnName("audit_detail_id")
-                .IsRequired(); // truncate sign table when errors occur
-
+                .Property(e => e.Added)
+                .HasColumnName("added")
+                .HasColumnType("datetime")
+                .IsRequired()
+                .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
+                .HasComment("when sign was added");
+            
             builder
-                .HasOne(e => e.AuditDetail)
-                .WithOne(x => x.Sign)
-                .HasForeignKey<SignAuditDetail>()
-                .OnDelete(DeleteBehavior.Cascade);
+                .Property(e => e.Modified)
+                .HasColumnName("modified")
+                .HasColumnType("datetime")
+                .IsRequired()
+                .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
+                .HasComment("when sign was added");
         }
     }
 }

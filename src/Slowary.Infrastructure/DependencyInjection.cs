@@ -2,10 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Slowary.Application.Common.Dao.SignAuditDetails;
 using Slowary.Application.Common.Dao.Signs;
 using Slowary.Infrastructure.Persistence;
-using Slowary.Infrastructure.Persistence.Dao.SignAuditDetails;
 using Slowary.Infrastructure.Persistence.Dao.Signs;
 
 namespace Slowary.Infrastructure
@@ -23,8 +21,7 @@ namespace Slowary.Infrastructure
                 .AddScoped<IAsyncSignAdder, EfAsyncSignAdder>()
                 .AddScoped<IAsyncSignFinder, EfAsyncSignFinder>()
                 .AddScoped<IAsyncSignUpdater, EfAsyncSignUpdater>()
-                .AddScoped<IAsyncSignDeleter, EfAsyncSignDeleter>()
-                .AddScoped<IAsyncSignAuditDetailAdder, EfAsyncSignAuditDetailAdder>();
+                .AddScoped<IAsyncSignDeleter, EfAsyncSignDeleter>();
 
             return services;
         }
