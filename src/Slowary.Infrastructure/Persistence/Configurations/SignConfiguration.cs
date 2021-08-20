@@ -64,16 +64,14 @@ namespace Slowary.Infrastructure.Persistence.Configurations
                 .Property(e => e.Added)
                 .HasColumnName("added")
                 .HasColumnType("datetime")
-                .IsRequired()
-                .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
+                .IsRequired(false)
                 .HasComment("when sign was added");
             
             builder
                 .Property(e => e.Modified)
                 .HasColumnName("modified")
                 .HasColumnType("datetime")
-                .IsRequired()
-                .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
+                .IsRequired(false)
                 .HasComment("when sign was added");
         }
     }

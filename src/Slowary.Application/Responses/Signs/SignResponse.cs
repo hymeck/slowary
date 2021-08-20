@@ -10,7 +10,7 @@ namespace Slowary.Application.Responses.Signs
         public string Example { get; set; }
         public string Source { get; set; }
         public string Note { get; set; }
-        public DateTime Added { get; set; }
-        public DateTime Modified { get; set; }
+        public DateTime? Added { get; set; }
+        public DateTime? Modified { get; set; }
     }
 }
