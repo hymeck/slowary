@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Slowary.Application.Common.Dao.Signs;
+using Slowary.Application.Services;
 using Slowary.Infrastructure.Persistence;
 using Slowary.Infrastructure.Persistence.Dao.Signs;
+using Slowary.Infrastructure.Services;
 
 namespace Slowary.Infrastructure
 {
@@ -21,7 +23,11 @@ namespace Slowary.Infrastructure
                 .AddScoped<IAsyncSignAdder, EfAsyncSignAdder>()
                 .AddScoped<IAsyncSignFinder, EfAsyncSignFinder>()
                 .AddScoped<IAsyncSignUpdater, EfAsyncSignUpdater>()
-                .AddScoped<IAsyncSignDeleter, EfAsyncSignDeleter>();
+                .AddScoped<IAsyncSignDeleter, EfAsyncSignDeleter>()
+                .AddScoped<IAsyncSignPaginator, EfAsyncSignPaginator>();
+
+            services
+                .AddSingleton<ISignPaginationConfProvider, SignPaginationConfProvider>();
 
             return services;
         }

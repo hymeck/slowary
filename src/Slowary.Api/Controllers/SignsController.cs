@@ -42,5 +42,13 @@ namespace Slowary.Api.Controllers
             // if none then resource was deleted
             return option.Match<IActionResult>(UnprocessableEntity, NoContent);
         }
+
+        [HttpGet("list")]
+        public async Task<IActionResult> GetPagedSigns([FromQuery] int page = 1)
+        {
+            var query = new GetPagedSignsQuery(page);
+            var option = await Mediator.Send(query);
+            return option.Match<IActionResult>(Ok, UnprocessableEntity);
+        }
     }
 }
